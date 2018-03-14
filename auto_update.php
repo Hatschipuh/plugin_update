@@ -49,7 +49,7 @@ if ((function_exists('curl_version')) )
 else if (file_get_contents(__FILE__) && ini_get('allow_url_fopen'))
 {
     if (strpos($datei, 'https') === true) 
-    {      echo 'CCC';
+    {      //echo 'CCC';
         $arrContextOptions=array(
       "ssl"=>array(
             "verify_peer"=>false,
