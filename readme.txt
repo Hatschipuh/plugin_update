@@ -1,29 +1,50 @@
-Auto Update for  Plugins and Themes V1.0 03/18
+Auto Update for Bludit, Plugins and Themes V1.1 03/18
 =======================
 
 BETA
 
-Version:    1.0  10.03.2018
+Version:    1.1  21.03.2018
 Autor:      Hertste, Germany, stefan.programmiert@web.de
 Website:    Http://www.pc.hertste.de
 Copyright:  2018 Stefan H.
 
-Für Bludit Version 2.X
+FÃ¼r Bludit Version 2.X
 
-Installiert automatisch alle aktuellen Plugins und Themes, die auf der Bludit Seite angeboten werden.
+Installiert automatisch alle aktuellen Bludit Version, Plugins und Themes, die auf der Bludit Seite angeboten werden.
 
-Fragen, Wünsche, Anregungen sind erwünscht
+Fragen, WÃ¼nsche, Anregungen sind erwÃ¼nscht
+
+
 
 
 -----------------------------------------
 Automatical English Translate see down!
 -----------------------------------------
 
-Warnungen und Hinweiße
-----------------------
-Dieses Plugin aktualisiert und installiert alle Plugins und Themes von der Bludit Seite in Ihre Installation automatisch. Dabei überschreibt es evtl. ihr vorhandes Plugin und kann zu Datenverlusten führen. 
+History
+-------
+Version
+1.0         10.03.2018
+1.1         21.03.2018   automatisches Updates fÃ¼r Bludit selbst hinzugefÃ¼gt
 
-Bitte machen Sie unbedingt ein Backup bevor Sie dieses Plugin starten! 
+
+
+ToDo / Geplant
+--------------
+- Spezifische Auswahl der Updates Bludit/Themes/Plugins
+- MÃ¶glichkeit automatischer Updates in bestimmten AbstÃ¤nden
+- Evtl. PrÃ¼fung von mehrfachplugins um Fehlermeldungen zu vermeiden
+- SprachÃ¼bersetzungen
+- UpdatemÃ¶glichkeiten auch fÃ¼r andere Seiten, auÃŸerhalb der Bludit Hauptseite
+
+
+
+
+Warnungen und HinweiÃŸe
+----------------------
+Dieses Plugin aktualisiert und installiert alle Plugins und Themes von der Bludit Seite in Ihre Installation automatisch. Dabei Ã¼berschreibt es evtl. ihr vorhandes Plugin und kann zu Datenverlusten fÃ¼hren.
+
+Bitte machen Sie unbedingt ein Backup bevor Sie dieses Plugin starten!
 
 
 Was tun bei Fatal Fehlermeldungen?
@@ -32,9 +53,9 @@ Wenn nach einem Update eine Fehlermeldung erscheint z. B.
 
 Fatal error: Cannot declare class PluginLogoAndFooter, because the name is already in use in .../bl-plugins/logoandfooter-master/plugin.php on line 183
 
-dann gibt es dieses Plugin genau zweimal. Das heißt, eines muss gelöscht werden - in diesem Beispiel der Ordner: bl-plugins/logoandfooter (Das ist auch meist der ältere Ordner!). In der Regel sind Verzeichnisse mit dem Wort "-master" direkt von der Bludit Seite (bzw. von Github). Während das andere Verzeichnis vermutlich aus einer manuellen Installation kommt. Optimalerweiße bleibt das "...-master Verzeichnis" erhalten, dann wird es zukunftig automatisch aktualisiert ohne Fehlermeldung.
+dann gibt es dieses Plugin genau zweimal. Das heiÃŸt, eines muss gelÃ¶scht werden - in diesem Beispiel der Ordner: bl-plugins/logoandfooter (Das ist auch meist der Ã¤ltere Ordner!). In der Regel sind Verzeichnisse mit dem Wort "-master" direkt von der Bludit Seite (bzw. von Github). WÃ¤hrend das andere Verzeichnis vermutlich aus einer manuellen Installation kommt. OptimalerweiÃŸe bleibt das "...-master Verzeichnis" erhalten, dann wird es zukunftig automatisch aktualisiert ohne Fehlermeldung.
 
-Eine weitere Lösungsmöglichkeit ist, die plugin.php des Plugins manuel zu bearbeiten, und den Classennamen zu ändern, dann können beide Varianten zeitgleich verwendet werden. 
+Eine weitere LÃ¶sungsmÃ¶glichkeit ist, die plugin.php des Plugins manuel zu bearbeiten, und den Classennamen zu Ã¤ndern, dann kÃ¶nnen beide Varianten zeitgleich verwendet werden.
 
 
 
