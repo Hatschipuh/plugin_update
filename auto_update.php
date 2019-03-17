@@ -1,6 +1,4 @@
 <?php
-
-
  //$url = 'https://github.com/Fred89/bludit-plugins/releases/download/pluginsFilter1.0/plugins-filter.zip'; //zum testen
 
 
@@ -8,6 +6,9 @@
   $theme_seite  = 'https://themes.bludit.com/de/';
   $bludit_seite = 'https://www.bludit.com/de/';
 
+  $plugin_counter = 0;
+  $theme_counter  = 0;
+  $bludit_counter = 0;
 
 
 
@@ -154,8 +155,11 @@ else
 
   // === Datei speichern - begin
   $dat = fopen($datei_name,'w+');
-  fwrite($dat,$content);
+  $schreiben = fwrite($dat,$content);
   fclose($dat);
+  
+  if (!$dat) { echo 'Datei &ouml;ffnen fehlgeschlagen'; }
+  if (!$schreiben) { echo 'Datei schreiben fehlgeschlagen'; }
   // === Datei speichern - end
 
 // ===== Zip von Github downloaden - begin
@@ -188,25 +192,41 @@ else
 
   // ======== START - begin
   // ======== START - begin
-
+          
 
   // ===== Plugins downloaden und installieren - begin
   // Erstmal Plugin Seite herunterladen
   download($plugin_seite, 'lschen.txt'); //Url, Speicher Dateiname
-
+  echo 'aaa';
+  
   // Dann Zip Links finden
   $daten = file_get_contents("lschen.txt");
-  preg_match_all("!<a .*?href=\"([^\"]*\.zip)\"[^>]*>(.*?)</a>!", $daten, $found );
+  //preg_match_all("!<a .*?href=\"([^\"]*\.zip)\"[^>]*>(.*?)</a>!", $daten, $found );  // Altes Muster
+  preg_match_all("!<a .*?href=\"([^\"]*\#download)\"[^>]*>(.*?)</a>!", $daten, $found );  
 
   for ($i = 0; $i < count($found[1]); $i++) {
-     //echo $found[1][$i] . '<br />';
-     download($found[1][$i], 'lschen.zip');
-     zip_entpacken('lschen.zip',PATH_PLUGINS);
+     // Unterseiten downloaden - start
+     //echo $i.') '.$found[1][$i] . '<br />';
+     download($found[1][$i], 'lschen_unterseite.txt');
+          
+           // Unterseiten durchsuchen nach Zips
+           $daten2 = file_get_contents("lschen_unterseite.txt"); 
+           preg_match_all("!<a .*?href=\"([^\"]*\.zip)\"[^>]*>(.*?)</a>!", $daten2, $found2 );
+           for ($ib = 0; $ib < count($found2[1]); $ib++) {
+                //echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$ib.') '.$found2[1][$ib] . '<br />';
+                if ($ib == 0) {  // Nur den ersten Treffer (Ist meister der neuere). Sonst gibt es evtl. Crash mit alten Versionen
+                  download($found2[1][$ib], 'lschen.zip');
+                  zip_entpacken('lschen.zip',PATH_PLUGINS);
+                  $plugin_counter = $plugin_counter + 1;
+                }
+           }           
 }
    @unlink('lschen.txt');
    @unlink('lschen.zip');
+   @unlink('lschen_unterseite.txt');
   // ===== Plugins downloaden und installieren - end
-
+  
+             
 
 
 // ===== Themes downloaden und installieren - begin
@@ -215,16 +235,34 @@ else
 
   // Dann Zip Links finden
   $daten = file_get_contents("lschen.txt");
-  preg_match_all("!<a .*?href=\"([^\"]*\.zip)\"[^>]*>(.*?)</a>!", $daten, $found );
+  //preg_match_all("!<a .*?href=\"([^\"]*\.zip)\"[^>]*>(.*?)</a>!", $daten, $found );  // Altes Muster
+  preg_match_all("!<a .*?href=\"([^\"]*\#download)\"[^>]*>(.*?)</a>!", $daten, $found );
 
   for ($i = 0; $i < count($found[1]); $i++) {
-     //echo $found[1][$i] . '<br />';
-     download($found[1][$i], 'lschen.zip');
-     zip_entpacken('lschen.zip',PATH_THEMES);
+     // Unterseiten downloaden - start
+     //echo $i.') '.$found[1][$i] . '<br />';
+     download($found[1][$i], 'lschen_unterseite.txt');
+
+           // Unterseiten durchsuchen nach Zips
+           $daten2 = file_get_contents("lschen_unterseite.txt");
+           preg_match_all("!<a .*?href=\"([^\"]*\.zip)\"[^>]*>(.*?)</a>!", $daten2, $found2 );
+           for ($ib = 0; $ib < count($found2[1]); $ib++) {
+                //echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$ib.') '.$found2[1][$ib] . '<br />';
+                if ($ib == 0) {  // Nur den ersten Treffer (Ist meister der neuere). Sonst gibt es evtl. Crash mit alten Versionen                  
+                  download($found2[1][$ib], 'lschen.zip');
+                  zip_entpacken('lschen.zip',PATH_THEMES);
+                  $theme_counter = $theme_counter+1;
+                }
+           }
 }
+   
    @unlink('lschen.txt');
    @unlink('lschen.zip');
+   @unlink('lschen_unterseite.txt');
   // ===== Themes downloaden und installieren - end
+
+
+
 
 
 // ===== Bludit downloaden und installieren - begin
@@ -241,6 +279,7 @@ else
      //echo $found[1][$i] . '<br />';
      download($found[1][$i], 'lschen.zip');
      zip_entpacken('lschen.zip',PATH_ROOT."lschen_bludit_new");
+     $bludit_counter = $bludit_counter+1;
 }
    @unlink('lschen.txt');
    @unlink('lschen.zip');
@@ -253,8 +292,14 @@ else
 
   // ===== Bludit downloaden und installieren - end
 
-   echo '<br />Bludit, Plugins and themes have been updated. When you see Errors, please write in Bludit Forum. <br /><br />';
+
+  // ====== Meldungen - start
+   if ($theme_counter == 0) { echo '<br />Theme Error: Themes konnten nicht eingelesen werden.';} else {echo '<br />Themes updated: '.$theme_counter;}
+   if ($plugin_counter == 0) { echo '<br />Plugin Error: Plugins konnten nicht eingelesen werden.';} else {echo '<br />Plugin updated: '.$plugin_counter;}
+   if ($bludit_counter == 0) { echo '<br />Bludit Update Error: Bludit konnte nicht eingelesen werden.';} else {echo '<br />Bludit updated.';}
+  // ====== Meldungen - end
+
+
+   echo '<br />Bludit, Plugins and themes have been updated. When you see Errors or any problems, please write in Bludit Forum. <br /><br />';
 ?>
-
-
 

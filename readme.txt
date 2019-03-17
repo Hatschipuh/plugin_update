@@ -1,14 +1,14 @@
-Auto Update for Bludit, Plugins and Themes V1.1 03/18
+Auto Update for Bludit, Plugins and Themes V2.0 03/19
 =======================
 
 BETA
 
-Version:    1.1  21.03.2018
+Version:    2.0  10.03.2019
 Autor:      Hertste, Germany, stefan.programmiert@web.de
 Website:    Http://www.pc.hertste.de
-Copyright:  2018 Stefan H.
+Copyright:  2019 Stefan H.
 
-Für Bludit Version 2.X
+Für Bludit Version 2.X and Version 3.X
 
 Installiert automatisch alle aktuellen Bludit Version, Plugins und Themes, die auf der Bludit Seite angeboten werden.
 
@@ -26,6 +26,7 @@ History
 Version
 1.0         10.03.2018
 1.1         21.03.2018   automatisches Updates für Bludit selbst hinzugefügt
+2.0         10.30.2018   Plugin ist für die neuen Download Seite angepasst worden. 
 
 
 
